@@ -3,5 +3,8 @@
 
     <string name="hello">Hello World, TptKeyboardSwitcherActivity!</string>
     <string name="app_name">TptKeyboardSwitcher</string>
+    
+    <string name="btn.mount.rw">Mount read-write</string>
+    <string name="btn.mount.ro">Mount read-only</string>
 
 </resources>

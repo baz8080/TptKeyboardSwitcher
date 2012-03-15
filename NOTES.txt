@@ -1,0 +1,12 @@
+General
+=======
+Symlinks of kcm files are picked up when keyboard is plugged in and out. No need for reboot.
+
+Detect and obtain root
+======================
+http://www.stealthcopter.com/blog/2010/01/android-requesting-root-access-in-your-app/
+
+Detect read-only
+================
+
+1) Detect if the /system partition is read-only
