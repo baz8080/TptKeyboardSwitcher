@@ -7,4 +7,7 @@
     <string name="btn.mount.rw">Mount read-write</string>
     <string name="btn.mount.ro">Mount read-only</string>
 
+    <string name="error.mount.ro">Failed to mount partition as read-only</string>
+    <string name="error.mount.rw">Failed to mount partition as read-write</string>
+    
 </resources>
