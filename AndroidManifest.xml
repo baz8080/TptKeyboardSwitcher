@@ -9,7 +9,7 @@
     <application
         android:name="com.mbcdev.tptkeyboardswitcher.MainApplication"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" >
+        android:label="@string/app_name" android:theme="@android:style/Theme.Holo">
         <activity
             android:name=".ui.TptKeyboardSwitcherActivity"
             android:label="@string/app_name" >

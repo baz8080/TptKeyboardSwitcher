@@ -2,7 +2,7 @@ package com.mbcdev.tptkeyboardswitcher.command;
 
 import java.io.DataOutputStream;
 
-import com.mbcdev.tptkeyboardswitcher.util.FilePaths;
+import com.mbcdev.tptkeyboardswitcher.util.FileUtils.FilePaths;
 
 public class MountCommand extends AbstractCommand {
 

@@ -7,10 +7,12 @@ import roboguice.util.Ln;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.mbcdev.tptkeyboardswitcher.R;
 import com.mbcdev.tptkeyboardswitcher.command.MountCommand;
 import com.mbcdev.tptkeyboardswitcher.command.MountCommand.MountOptions;
+import com.mbcdev.tptkeyboardswitcher.command.TestFileCommand;
 
 public class TptKeyboardSwitcherActivity extends RoboActivity {
 
@@ -19,6 +21,12 @@ public class TptKeyboardSwitcherActivity extends RoboActivity {
   
   @InjectView(R.id.btnTestRW)
   private Button btnReadWrite;
+  
+  @InjectView(R.id.btnTestSym)
+  private Button btnTestSym;
+  
+  @InjectView(R.id.txtTestFile)
+  private EditText etTestFile;
 
   /** Called when the activity is first created. */
   @Override
@@ -39,6 +47,14 @@ public class TptKeyboardSwitcherActivity extends RoboActivity {
       @Override
       public void onClick(View v) {
         handleMount(MountOptions.READ_WRITE);
+      }
+    });
+    
+    btnTestSym.setOnClickListener(new View.OnClickListener() {
+      
+      @Override
+      public void onClick(View v) {
+        handleTestSym();
       }
     });
   }
@@ -68,5 +84,21 @@ public class TptKeyboardSwitcherActivity extends RoboActivity {
     
   }
   
+  private void handleTestSym() {
+    String filePath = etTestFile.getText().toString();
+    
+    TestFileCommand tfc = new TestFileCommand();
+    
+    try {
+      boolean isSymbolic = tfc.isSymbolic(filePath);
+      
+      if (!isSymbolic) { toast(this, "Fook"); } else {toast(this, "Nook");}
+      
+    } catch (Exception e) {
+      toast(this, e.getMessage());
+      Ln.e(e);
+    }
+    
+  }
   
 }

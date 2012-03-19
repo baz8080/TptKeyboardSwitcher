@@ -6,7 +6,10 @@
     
     <string name="btn.mount.rw">Mount read-write</string>
     <string name="btn.mount.ro">Mount read-only</string>
+    <string name="btn.test.sym">Test symbolic</string>
 
+    <string name="txt.testfile">/system/usr/keychars/Vendor_1241_Product_0003_Version_0110.kcm</string>
+    
     <string name="error.mount.ro">Failed to mount partition as read-only</string>
     <string name="error.mount.rw">Failed to mount partition as read-write</string>
     
