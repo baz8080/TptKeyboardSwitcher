@@ -42,8 +42,8 @@ public class MountCommand extends AbstractCommand {
       throw new IllegalArgumentException("wrong number of args");
     }
     
-    String mountOptions = args[0];
-    String path = args[1];
+    String path = args[0];
+    String mountOptions = args[1];
     
     if (mountOptions == null || path == null) {
       throw new IllegalArgumentException("one or more args null");
