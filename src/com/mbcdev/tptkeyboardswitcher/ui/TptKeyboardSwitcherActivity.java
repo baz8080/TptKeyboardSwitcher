@@ -92,7 +92,7 @@ public class TptKeyboardSwitcherActivity extends RoboActivity {
     try {
       boolean isSymbolic = tfc.isSymbolic(filePath);
       
-      if (!isSymbolic) { toast(this, "Fook"); } else {toast(this, "Nook");}
+      if (isSymbolic) { toast(this, "sym"); } else {toast(this, "not sym");}
       
     } catch (Exception e) {
       toast(this, e.getMessage());
