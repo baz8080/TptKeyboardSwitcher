@@ -10,9 +10,11 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.mbcdev.tptkeyboardswitcher.R;
+import com.mbcdev.tptkeyboardswitcher.command.CommandRunner;
+import com.mbcdev.tptkeyboardswitcher.command.FileTestCommand;
+import com.mbcdev.tptkeyboardswitcher.command.FileTestCommand.FileTestType;
 import com.mbcdev.tptkeyboardswitcher.command.MountCommand;
 import com.mbcdev.tptkeyboardswitcher.command.MountCommand.MountOptions;
-import com.mbcdev.tptkeyboardswitcher.command.TestFileCommand;
 
 public class TptKeyboardSwitcherActivity extends RoboActivity {
 
@@ -54,51 +56,49 @@ public class TptKeyboardSwitcherActivity extends RoboActivity {
       
       @Override
       public void onClick(View v) {
-        handleTestSym();
+        handleFileTest(FileTestType.SYMLINK);
       }
     });
   }
   
   private void handleMount(MountOptions options) {
     
-    boolean b = false;
-    MountCommand mc = new MountCommand();
+    CommandRunner.Builder builder = new CommandRunner.Builder();
+    
+    CommandRunner runner = builder
+        .command(new MountCommand("/system", options))
+        .runAsRoot()
+        .build();
     
     try {
-      
-      switch (options) {
-      case READ_ONLY:
-        b = mc.roSystem();
-        if (!b) { toast(this, R.string.error_mount_ro); }
-        break;
-      case READ_WRITE:
-        b = mc.rwSystem();
-        if (!b) { toast(this, R.string.error_mount_rw); }
-        break;
-      }
-      
-    } catch (Exception e) {
-      toast(this, e.getMessage());
-      Ln.e(e);
-    } 
-    
-  }
-  
-  private void handleTestSym() {
-    String filePath = etTestFile.getText().toString();
-    
-    TestFileCommand tfc = new TestFileCommand();
-    
-    try {
-      boolean isSymbolic = tfc.isSymbolic(filePath);
-      
-      if (isSymbolic) { toast(this, "sym"); } else {toast(this, "not sym");}
-      
+      int i = runner.execute();
+      toast(this, "rc is " + i);
     } catch (Exception e) {
       toast(this, e.getMessage());
       Ln.e(e);
     }
     
+  }
+  
+  private void handleFileTest(FileTestType testType) {
+    String filePath = etTestFile.getText().toString();
+    
+    
+    CommandRunner.Builder builder = new CommandRunner.Builder();
+    
+    CommandRunner runner = builder
+        .command(new FileTestCommand(testType, filePath))
+        .build();
+    
+    try {
+      int rc = runner.execute();
+      
+      if (rc == 0) { toast(this, "rc==0"); } else {toast(this, "rc<>0");}
+      
+    } catch (Exception e) {
+      Ln.e(e);
+      toast(this, e.getMessage());
+    }   
   }
   
 }

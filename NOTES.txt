@@ -22,3 +22,17 @@ A) Check for existence of
 B) Select new language (currently generic + UK) (REQUIRES ROOT)
   1) remove symlink (check again)
   2) create symlink & point to selected file.
+  
+Rewrite
+=======
+Too much boilerplate code. Consider a builder pattern
+
+.command(? extends AbstractCommand)
+.command(? extends AbstractCommand)
+...
+.asRoot() // only if required
+.execute()
+
+Then each command object would only be responsible for string formatting.
+The list of command objects could be run as a "transaction". The command objects
+could also possibly define a rollback condition?
