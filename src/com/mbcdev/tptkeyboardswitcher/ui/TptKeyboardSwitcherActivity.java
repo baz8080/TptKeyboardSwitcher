@@ -1,9 +1,14 @@
 package com.mbcdev.tptkeyboardswitcher.ui;
 
 import static com.mbcdev.tptkeyboardswitcher.util.NotificationUtils.toast;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
 import roboguice.util.Ln;
+import android.content.res.Resources.NotFoundException;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +20,7 @@ import com.mbcdev.tptkeyboardswitcher.command.FileTestCommand;
 import com.mbcdev.tptkeyboardswitcher.command.FileTestCommand.FileTestType;
 import com.mbcdev.tptkeyboardswitcher.command.MountCommand;
 import com.mbcdev.tptkeyboardswitcher.command.MountCommand.MountOptions;
+import com.mbcdev.tptkeyboardswitcher.util.FileUtils;
 
 public class TptKeyboardSwitcherActivity extends RoboActivity {
 
@@ -30,6 +36,9 @@ public class TptKeyboardSwitcherActivity extends RoboActivity {
   @InjectView(R.id.txtTestFile)
   private EditText etTestFile;
 
+  @InjectView(R.id.btnTestCopy) 
+  private Button btnTestCopy;  
+  
   /** Called when the activity is first created. */
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -57,6 +66,14 @@ public class TptKeyboardSwitcherActivity extends RoboActivity {
       @Override
       public void onClick(View v) {
         handleFileTest(FileTestType.SYMLINK);
+      }
+    });
+    
+    btnTestCopy.setOnClickListener(new View.OnClickListener() {
+      
+      @Override
+      public void onClick(View v) {
+        handleCopy();
       }
     });
   }
@@ -99,6 +116,22 @@ public class TptKeyboardSwitcherActivity extends RoboActivity {
       Ln.e(e);
       toast(this, e.getMessage());
     }   
+  }
+  
+  private void handleCopy() {
+    
+    
+    try {
+      FileUtils.copyRaw(
+          getResources().openRawResourceFd(R.raw.thinkpaduk), "/tmp/foo.baz");
+    } catch (NotFoundException e) {
+      toast(this, e.getMessage());
+      Ln.e(e);
+    } catch (IOException e) {
+      toast(this, e.getMessage());
+      Ln.e(e);
+    }
+    
   }
   
 }

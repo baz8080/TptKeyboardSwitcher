@@ -36,3 +36,9 @@ Too much boilerplate code. Consider a builder pattern
 Then each command object would only be responsible for string formatting.
 The list of command objects could be run as a "transaction". The command objects
 could also possibly define a rollback condition?
+
+Copying
+=======
+Might not have the permissions to create a file so that will have to be
+done in shell with root access after remounting /system rw. Then can use java fileutils
+to copy the actual content.

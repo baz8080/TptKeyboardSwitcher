@@ -24,5 +24,10 @@
         android:id="@+id/btnTestSym"
         style="@style/Fill.Width"
         android:text="@string/btn.test.sym" />
+    
+    <Button
+        android:id="@+id/btnTestCopy"
+        style="@style/Fill.Width"
+        android:text="@string/btn.test.copy" />
 
 </LinearLayout>
