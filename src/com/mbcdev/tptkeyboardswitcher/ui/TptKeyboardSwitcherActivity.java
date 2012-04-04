@@ -2,8 +2,7 @@ package com.mbcdev.tptkeyboardswitcher.ui;
 
 import static com.mbcdev.tptkeyboardswitcher.util.NotificationUtils.toast;
 
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.File;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
@@ -16,11 +15,14 @@ import android.widget.EditText;
 
 import com.mbcdev.tptkeyboardswitcher.R;
 import com.mbcdev.tptkeyboardswitcher.command.CommandRunner;
+import com.mbcdev.tptkeyboardswitcher.command.CopyCommand;
+import com.mbcdev.tptkeyboardswitcher.command.DeleteCommand;
 import com.mbcdev.tptkeyboardswitcher.command.FileTestCommand;
 import com.mbcdev.tptkeyboardswitcher.command.FileTestCommand.FileTestType;
 import com.mbcdev.tptkeyboardswitcher.command.MountCommand;
 import com.mbcdev.tptkeyboardswitcher.command.MountCommand.MountOptions;
 import com.mbcdev.tptkeyboardswitcher.util.FileUtils;
+import com.mbcdev.tptkeyboardswitcher.util.FileUtils.FilePaths;
 
 public class TptKeyboardSwitcherActivity extends RoboActivity {
 
@@ -119,19 +121,33 @@ public class TptKeyboardSwitcherActivity extends RoboActivity {
   }
   
   private void handleCopy() {
+        
+    File extFile = new File(getExternalFilesDir(null), "uk.kcm");
+    String extFilePath = extFile.getAbsolutePath();
     
+    CommandRunner.Builder builder = new CommandRunner.Builder();
+    
+    CommandRunner runner = builder
+      .runAsRoot()
+      .command(new MountCommand(FilePaths.SYSTEM.getPath(), MountOptions.READ_WRITE))
+      .command(new CopyCommand(extFilePath, FilePaths.KEYCHARS.getPathTerminated()))
+      .command(new DeleteCommand(extFilePath))
+      .command(new MountCommand(FilePaths.SYSTEM.getPath(), MountOptions.READ_ONLY))
+      .build();
     
     try {
       FileUtils.copyRaw(
-          getResources().openRawResourceFd(R.raw.thinkpaduk), "/tmp/foo.baz");
+          getResources().openRawResourceFd(R.raw.thinkpaduk), extFilePath);
+      
+      int rc = runner.execute();
+      if (rc == 0) { toast(this, "rc==0"); } else {toast(this, "rc<>0");}
+      
     } catch (NotFoundException e) {
       toast(this, e.getMessage());
       Ln.e(e);
-    } catch (IOException e) {
+    } catch (Exception e) {
       toast(this, e.getMessage());
       Ln.e(e);
     }
-    
   }
-  
 }

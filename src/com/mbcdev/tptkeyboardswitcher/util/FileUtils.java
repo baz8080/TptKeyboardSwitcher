@@ -32,6 +32,10 @@ public class FileUtils {
     public String getPath() {
       return this.path;
     }
+    
+    public String getPathTerminated() {
+      return this.path + "/";
+    }
   }
 
   public static String computeMD5Hash(String filePath) {
