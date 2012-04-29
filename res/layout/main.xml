@@ -29,5 +29,10 @@
         android:id="@+id/btnTestCopy"
         style="@style/Fill.Width"
         android:text="@string/btn.test.copy" />
+    
+    <TextView 
+        android:id="@+id/tvBuildInfo"
+        style="@style/Fill.Width"    
+    />
 
 </LinearLayout>

@@ -8,10 +8,12 @@ import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
 import roboguice.util.Ln;
 import android.content.res.Resources.NotFoundException;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.mbcdev.tptkeyboardswitcher.R;
 import com.mbcdev.tptkeyboardswitcher.command.CommandRunner;
@@ -39,7 +41,10 @@ public class TptKeyboardSwitcherActivity extends RoboActivity {
   private EditText etTestFile;
 
   @InjectView(R.id.btnTestCopy) 
-  private Button btnTestCopy;  
+  private Button btnTestCopy;
+  
+  @InjectView(R.id.tvBuildInfo)
+  private TextView tvBuildInfo;
   
   /** Called when the activity is first created. */
   @Override
@@ -78,6 +83,18 @@ public class TptKeyboardSwitcherActivity extends RoboActivity {
         handleCopy();
       }
     });
+    
+    populateBuildInfo();
+  }
+  
+  private void populateBuildInfo () {
+  	StringBuilder sb = new StringBuilder();
+  	
+  	sb.append("Device: ").append(Build.DEVICE).append("\n")
+  	.append("Product: ").append(Build.PRODUCT).append("\n")
+  	.append("Model: ").append(Build.MODEL).append("\n");
+  	
+  	tvBuildInfo.setText(sb.toString());
   }
   
   private void handleMount(MountOptions options) {

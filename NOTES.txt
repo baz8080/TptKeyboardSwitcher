@@ -10,6 +10,13 @@ Detect normal and symlink files
 ===============================
 Can use -L for symlink and -e for normal
 
+Swap File Process
+=================
+1) Check for symlink of vendor file
+  a) if not present create and link to generic kcm
+  b) if present continue
+2) Extract 
+
 Process
 =======
 A) Check for existence of
