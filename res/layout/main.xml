@@ -5,34 +5,28 @@
     android:orientation="vertical" >
 
     <Button
-        android:id="@+id/btnTestRW"
+        android:id="@+id/btnTest"
         style="@style/Fill.Width"
-        android:text="@string/btn.mount.rw" />
+        android:text="Test" />
+    
+    <Button
+        android:id="@+id/btnEnglishUs"
+        style="@style/Fill.Width"
+        android:text="@string/btn.language.en_us" />
 
     <Button
-        android:id="@+id/btnTestRO"
+        android:id="@+id/btnEnglishUk"
         style="@style/Fill.Width"
-        android:text="@string/btn.mount.ro" />
-    
-    <EditText 
-        android:id="@+id/txtTestFile"
-        style="@style/Fill.Width"
-        android:inputType="textNoSuggestions"
-        android:text="@string/txt.testfile" />
+        android:text="@string/btn.language.en_uk" />
     
     <Button
-        android:id="@+id/btnTestSym"
+        android:id="@+id/btnRevert"
         style="@style/Fill.Width"
-        android:text="@string/btn.test.sym" />
-    
-    <Button
-        android:id="@+id/btnTestCopy"
-        style="@style/Fill.Width"
-        android:text="@string/btn.test.copy" />
+        android:text="@string/btn.language.revert" />
     
     <TextView 
-        android:id="@+id/tvBuildInfo"
-        style="@style/Fill.Width"    
+        android:id="@+id/txtStatus"
+        style="@style/Fill.Width"
     />
 
 </LinearLayout>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/btnTestRW"
+        style="@style/Fill.Width"
+        android:text="@string/btn.mount.rw" />
+
+    <Button
+        android:id="@+id/btnTestRO"
+        style="@style/Fill.Width"
+        android:text="@string/btn.mount.ro" />
+    
+    <EditText 
+        android:id="@+id/txtTestFile"
+        style="@style/Fill.Width"
+        android:inputType="textNoSuggestions"
+        android:text="@string/txt.testfile" />
+    
+    <Button
+        android:id="@+id/btnTestSym"
+        style="@style/Fill.Width"
+        android:text="@string/btn.test.sym" />
+    
+    <Button
+        android:id="@+id/btnTestCopy"
+        style="@style/Fill.Width"
+        android:text="@string/btn.test.copy" />
+    
+    <TextView 
+        android:id="@+id/tvBuildInfo"
+        style="@style/Fill.Width"    
+    />
+
+</LinearLayout>

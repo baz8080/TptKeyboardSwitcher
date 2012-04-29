@@ -54,3 +54,10 @@ Settings
 ========
 App might be useful on non TP tablets - could provide settings screen for vendor,
 product and version codes, and then process should be portable.
+
+Files
+=====
+Vendor_1241_Product_0003_Version_0110.kcm.txt 
+
+/system/usr/keychars    kcm
+/system/usr/keylayout   kl
