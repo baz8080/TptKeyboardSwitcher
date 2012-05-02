@@ -25,9 +25,6 @@ import com.mbcdev.tptkeyboardswitcher.util.FileUtils.FilePaths;
 
 public class TptKeyboardSwitcherActivity extends RoboActivity {
 
-  @InjectView(R.id.btnTest)
-  private Button btnTest;
-  
   @InjectView(R.id.btnEnglishUk)
   private Button btnEnUk;
   
@@ -45,13 +42,6 @@ public class TptKeyboardSwitcherActivity extends RoboActivity {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.main);
-    
-    btnTest.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        startActivity(new Intent(TptKeyboardSwitcherActivity.this, TesterActivity.class));
-      }
-    });
     
     btnEnUk.setOnClickListener(new View.OnClickListener() {
       
@@ -73,12 +63,40 @@ public class TptKeyboardSwitcherActivity extends RoboActivity {
       
       @Override
       public void onClick(View v) {
-        
+        deleteSymLinks();
       }
     });
     
   }
   
+  private void deleteSymLinks() {
+    
+    CommandRunner.Builder builder = new CommandRunner.Builder();
+    
+    CommandRunner runner = builder
+        .runAsRoot()
+        .command(new MountCommand(FilePaths.SYSTEM.getPath(), MountOptions.READ_WRITE))
+        .command(new DeleteCommand(FilePaths.KEYCHARS.getPathTerminated() + KCM_SYMLINK_NAME))
+        .command(new DeleteCommand(FilePaths.KEYLAYOUTS.getPathTerminated() + KL_SYMLINK_NAME))
+        .command(new MountCommand(FilePaths.SYSTEM.getPath(), MountOptions.READ_ONLY))
+        .build();
+    
+    int rc;
+    
+    try {
+      rc = runner.execute();
+      
+      if (rc == 0) {
+        toast(this, getString(R.string.success));
+      } else {
+        toast(this, getString(R.string.error_general));
+      }
+      
+    } catch (Exception e) {
+      toast(this, e.getMessage());
+      Ln.e(e);
+    }
+  }
   
   private void copyKeyboardConfig(final String path) {
     
@@ -118,9 +136,9 @@ public class TptKeyboardSwitcherActivity extends RoboActivity {
       int rc = runner.execute();
       
       if (rc == 0) {
-        toast(this, "Success");
+        toast(this, getString(R.string.success));
       } else {
-        toast(this, "Failed");
+        toast(this, getString(R.string.error_general));
       }
       
     } catch (Exception e) {

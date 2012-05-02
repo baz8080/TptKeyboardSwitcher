@@ -30,12 +30,11 @@ public class CommandRunner {
     }
     
     dos.flush();
-    
     p.waitFor();
-    exitCode = p.exitValue();
-    
+
+    exitCode = p.exitValue();    
     dos.close();
-    
+
     return exitCode;
   }
   

@@ -15,11 +15,13 @@
     <string name="btn.language.en_uk">Enable UK English Layout</string>
     <string name="btn.language.en_us">Enable US English Layout</string>
     <string name="btn.language.revert">Revert Layout Changes</string>
+    <string name="success">Success - disconnect and reconnect keyboard, or reboot if first time doing this.</string>
     
     <!-- Errors -->
     <string name="error.mount.ro">Failed to mount partition as read-only</string>
     <string name="error.mount.rw">Failed to mount partition as read-write</string>
     <string name="error.sym.exists" >The keyboard layout and / or map already exists</string>
+    <string name="error.general">General error - check logs</string>
     <!--/ Errors -->
     
 </resources>
