@@ -7,7 +7,6 @@ import java.io.File;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
 import roboguice.util.Ln;
-import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.os.Bundle;
 import android.view.View;
