@@ -1,2 +1,4 @@
-This is still very much just a testing ground for an app to allow you to change keyboard character configurations for external hardware keyboards in runtime.
+This is a rough and ready proof of concept of an app to allow you to change keyboard configurations for the Thinkpad Android Tablet.
+
+Similar concepts could be used to support other hardware keyboards that are connected via USB to an android tablet.
 
