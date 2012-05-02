@@ -20,7 +20,7 @@ public class FileUtils {
   public enum FilePaths {
     SYSTEM("/system"),
     KEYCHARS("/system/usr/keychars"),
-    KEYLAYOUTS("/system/usr/keylayouts")
+    KEYLAYOUTS("/system/usr/keylayout")
     ;
     
     private String path;
