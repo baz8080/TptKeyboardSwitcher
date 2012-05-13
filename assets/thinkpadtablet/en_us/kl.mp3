@@ -158,7 +158,7 @@ key 119   BREAK
 key 121   NUMPAD_COMMA
 # key 122 "KEY_HANGEUL"
 # key 123 "KEY_HANJA"
-key 124   YEN
+#key 124   YEN
 key 125   META_LEFT
 key 126   META_RIGHT
 key 127   MENU              WAKE_DROPPED
