@@ -35,7 +35,7 @@ public class TptKeyboardSwitcherActivity extends RoboActivity {
   
   private final static String DEVICE = "thinkpadtablet";
   private final static String KCM_SYMLINK_NAME = "Vendor_1241_Product_0003_Version_0110.kcm";
-  private final static String KL_SYMLINK_NAME  = "Vendor_1241_Product_0003_Version_0110.kl";
+  
   
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -76,7 +76,6 @@ public class TptKeyboardSwitcherActivity extends RoboActivity {
         .runAsRoot()
         .command(new MountCommand(FilePaths.SYSTEM.getPath(), MountOptions.READ_WRITE))
         .command(new DeleteCommand(FilePaths.KEYCHARS.getPathTerminated() + KCM_SYMLINK_NAME))
-        .command(new DeleteCommand(FilePaths.KEYLAYOUTS.getPathTerminated() + KL_SYMLINK_NAME))
         .command(new MountCommand(FilePaths.SYSTEM.getPath(), MountOptions.READ_ONLY))
         .build();
     
@@ -99,38 +98,28 @@ public class TptKeyboardSwitcherActivity extends RoboActivity {
   
   private void copyKeyboardConfig(final String path) {
     
-    File kcm = new File(getExternalFilesDir(null), DEVICE + "_" + path + ".kcm");
-    //File kl  = new File(getExternalFilesDir(null), DEVICE + "_" + path + ".kl" );
-    
+    File kcm = new File(getExternalFilesDir(null), DEVICE + "_" + path + ".kcm");    
     String kcmAssetPath = DEVICE + File.separator + path + File.separator + "kcm.mp3";
-    //String klAssetPath  = DEVICE + File.separator + path + File.separator + "kl.mp3";
-    
+
     CommandRunner.Builder builder = new CommandRunner.Builder();
     
-    String kcmDestinationPath = FilePaths.KEYCHARS.getPathTerminated() + kcm.getName();
-    //String klDestinationPath  = FilePaths.KEYLAYOUTS.getPathTerminated() + kl.getName(); 
+    String kcmDestinationPath = FilePaths.KEYCHARS.getPathTerminated() + kcm.getName(); 
     
     CommandRunner runner = builder
       .runAsRoot()
       .command(new MountCommand(FilePaths.SYSTEM.getPath(), MountOptions.READ_WRITE))
       .command(new CopyCommand(kcm.getAbsolutePath(), kcmDestinationPath))
-      //.command(new CopyCommand(kl.getAbsolutePath(), klDestinationPath))
       .command(new DeleteCommand(FilePaths.KEYCHARS.getPathTerminated() + KCM_SYMLINK_NAME))
-      //.command(new DeleteCommand(FilePaths.KEYLAYOUTS.getPathTerminated() + KL_SYMLINK_NAME))
       .command(new SymlinkCommand(FilePaths.KEYCHARS.getPathTerminated() + KCM_SYMLINK_NAME, kcmDestinationPath))
-      //.command(new SymlinkCommand(FilePaths.KEYLAYOUTS.getPathTerminated() + KL_SYMLINK_NAME, klDestinationPath))
       .command(new DeleteCommand(kcm.getAbsolutePath()))
-      //.command(new DeleteCommand(kl.getAbsolutePath()))
       
       .command(new MountCommand(FilePaths.SYSTEM.getPath(), MountOptions.READ_ONLY))
       .build();
     
     try {
-      AssetFileDescriptor kcmAssetDescriptor = getAssets().openFd(kcmAssetPath);
-      //AssetFileDescriptor klAssetDescriptor  = getAssets().openFd(klAssetPath);
-      
+      AssetFileDescriptor kcmAssetDescriptor = getAssets().openFd(kcmAssetPath);      
       FileUtils.copyRaw(kcmAssetDescriptor, kcm.getAbsolutePath());
-      //FileUtils.copyRaw(klAssetDescriptor, kl.getAbsolutePath());
+
       
       int rc = runner.execute();
       
